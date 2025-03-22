@@ -1,15 +1,16 @@
-# Daphuq Chrome Extension
+<img src="icons/daphuq.jpg" alt="Da phuq Icon" height=200/>
 
-A Chrome extension that helps you manage and organize your browser tabs more efficiently.
+# Da phuq?
 
-## Features
+A Chrome extension to explain confusing stuff.
 
-- Tab management and organization
-- Quick access to frequently used tabs
-- Customizable settings
-- Privacy-focused design
+## Easy Installation
+1. Open Chrome 
+2. `chrome://extensions/`
+3. Search for Da phuq?
+4. Install
 
-## Installation
+## Source Code Installation
 
 1. Clone this repository or download the source code
 2. Open Chrome and navigate to `chrome://extensions/`
@@ -18,9 +19,17 @@ A Chrome extension that helps you manage and organize your browser tabs more eff
 
 ## Usage
 
-1. Click the extension icon in your Chrome toolbar
-2. Use the popup interface to manage your tabs
-3. Access settings through the extension options
+1. The first time you use Da phuq? you'll be asked for your [OpenAI API key](https://platform.openai.com/api-keys)
+2. Go to any webpage
+3. Select text and open the extension
+
+## Things you might like to know
+
+1. This extension stores your OpenAI API key in Chrome's local storage.
+2. Text is sent between your browser and OpenAI. Nowwhere else. 
+3. Da Phuq? uses OpenAI's gpt-4o-mini model. It's quick and cheap. 
+4. It doesn't work with PDFs.
+
 
 ## Development
 
@@ -31,9 +40,6 @@ To modify or enhance the extension:
 3. Reload the extension in Chrome
 4. Test your changes
 
-## Privacy
-
-This extension is designed with privacy in mind. See our [Privacy Policy](privacy_policy.html) for more details.
 
 ## Contributing
 

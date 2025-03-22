@@ -23,7 +23,7 @@ function getPromptForType(type, text) {
             return `Please explain this using an analogy that a layperson would understand: ${text}`;
         case 'simple':
         default:
-            return `Please explain this to a layperson using plain language. Be as short as you can be: ${text}`;
+            return `This is confusing. Explain it in a simple way. Be as short as you can be. Just answer, don't personalize it: ${text}`;
     }
 }
 
@@ -95,7 +95,7 @@ async function handleExplanationRequest(request, sendResponse) {
                 'Authorization': `Bearer ${apiKey}`
             },
             body: JSON.stringify({
-                model: "gpt-4",
+                model: "gpt-4o-mini",
                 messages: [
                     {
                         role: "system",

@@ -260,4 +260,96 @@ body::-webkit-scrollbar-thumb:hover {
   height: 32px;
   border-radius: 6px;
   object-fit: cover;
+}
+
+.selected-content {
+  margin: 15px 0;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.selected-content h3 {
+  font-size: 16px;
+  margin: 0 0 8px 0;
+  color: #666;
+}
+
+.selected-text {
+  margin-bottom: 12px;
+  padding: 8px;
+  background-color: white;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #444;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.selected-image {
+  margin-bottom: 12px;
+}
+
+.selected-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.data-disclosure {
+  background-color: #f8f9fa;
+  padding: 15px;
+  margin: 15px 0;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+}
+
+.data-disclosure h3 {
+  margin: 0 0 10px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.data-disclosure ul {
+  margin: 10px 0;
+  padding-left: 20px;
+}
+
+.data-disclosure li {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.consent-checkbox {
+  display: block;
+  margin-top: 15px;
+  font-size: 14px;
+  color: #333;
+}
+
+.consent-checkbox input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+.consent-checkbox a {
+  color: #2196F3;
+  text-decoration: none;
+}
+
+.consent-checkbox a:hover {
+  text-decoration: underline;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+button:disabled:hover {
+  background-color: #ccc;
 } 

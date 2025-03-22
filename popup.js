@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const instructionsDiv = document.querySelector('.instructions.compact');
     const explanationControls = document.querySelector('.explanation-controls');
     const resubmitButton = document.getElementById('resubmitButton');
+    const consentCheckbox = document.getElementById('consentCheckbox');
 
     let lastProcessedText = '';
     let isProcessing = false;
@@ -85,11 +86,19 @@ document.addEventListener('DOMContentLoaded', function() {
         getExplanation(lastProcessedText, selectedType);
     });
 
+    // Enable/disable save button based on API key and consent
+    function updateSaveButton() {
+        saveApiKeyButton.disabled = !apiKeyInput.value.trim() || !consentCheckbox.checked;
+    }
+
+    apiKeyInput.addEventListener('input', updateSaveButton);
+    consentCheckbox.addEventListener('change', updateSaveButton);
+
     // Save API key
     saveApiKeyButton.addEventListener('click', function() {
         const apiKey = apiKeyInput.value.trim();
-        if (!apiKey) {
-            alert('Please enter an API key');
+        if (!apiKey || !consentCheckbox.checked) {
+            alert('Please enter an API key and accept the data usage terms');
             return;
         }
 
@@ -156,7 +165,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
             chrome.tabs.sendMessage(tabs[0].id, {action: 'getSelectedText'}, function(response) {
                 if (chrome.runtime.lastError) {
-                    console.error('Error getting selected text:', chrome.runtime.lastError);
                     return;
                 }
 

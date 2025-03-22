@@ -22,7 +22,21 @@
       <div class="api-key-section">
         <label for="apiKey">OpenAI API Key:</label>
         <input type="password" id="apiKey" placeholder="Enter your OpenAI API key">
-        <button id="saveApiKey">Save API Key</button>
+        <div class="data-disclosure">
+          <h3>Data Usage Disclosure</h3>
+          <p>By providing your API key and using this extension, you agree that:</p>
+          <ul>
+            <li>Text you select will be sent to OpenAI's API for generating explanations</li>
+            <li>Your API key will be stored securely in your browser</li>
+            <li>No data will be used for advertising or shared with third parties</li>
+            <li>All processing is automated - no humans will read your data</li>
+          </ul>
+          <label class="consent-checkbox">
+            <input type="checkbox" id="consentCheckbox" required>
+            I understand and agree to the data usage terms and <a href="privacy_policy.html" target="_blank">privacy policy</a>
+          </label>
+        </div>
+        <button id="saveApiKey" disabled>Save API Key</button>
       </div>
     </div>
 
