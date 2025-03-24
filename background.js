@@ -23,7 +23,7 @@ function getPromptForType(type, text) {
             return `Please explain this using an analogy that a layperson would understand: ${text}`;
         case 'simple':
         default:
-            return `This is confusing. Explain it in a simple way to a noob. Define terms as you go.Don't use analogies. Don't use jargon. Don't use big words. Be as short as you can be. Just answer, don't personalize it: ${text}`;
+            return `This is confusing. Explain it in a simple way to a noob. Define terms as you go. Don't use analogies. Don't use jargon. Don't use big words. Be as short as you can be. Just answer, don't personalize it: ${text}`;
     }
 }
 
