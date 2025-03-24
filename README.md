@@ -1,13 +1,13 @@
-<img src="icons/daphuq.jpg" alt="Da phuq Icon" height=200/>
+<img src="icons/daphaq-logo-1.png" alt="Da phaq Icon" height=200/>
 
-# Da phuq?
+# Da phaq?
 
 A Chrome extension to explain confusing stuff.
 
 ## Easy Installation
 1. Open Chrome 
 2. `chrome://extensions/`
-3. Search for Da phuq?
+3. Search for Da phaq?
 4. Install
 
 ## Source Code Installation
@@ -19,7 +19,7 @@ A Chrome extension to explain confusing stuff.
 
 ## Usage
 
-1. The first time you use Da phuq? you'll be asked for your [OpenAI API key](https://platform.openai.com/api-keys)
+1. The first time you use Da phaq? you'll be asked for your [OpenAI API key](https://platform.openai.com/api-keys)
 2. Go to any webpage
 3. Select text and open the extension
 
@@ -27,8 +27,8 @@ A Chrome extension to explain confusing stuff.
 
 1. This extension stores your OpenAI API key in Chrome's local storage.
 2. Text is sent between your browser and OpenAI. Nowwhere else. 
-3. Da Phuq? uses OpenAI's gpt-4o-mini model. It's quick and cheap. 
-4. It doesn't work with PDFs.
+3. Da Phaq? uses OpenAI's gpt-4o-mini model. It's quick and cheap. 
+4. It doesn't work with PDFs or images (sorry)
 
 
 ## Development
