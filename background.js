@@ -23,7 +23,7 @@ function getPromptForType(type, text) {
             return `Please explain this using an analogy that a layperson would understand: ${text}`;
         case 'simple':
         default:
-            return `This is confusing. Explain it in a simple way. Be as short as you can be. Just answer, don't personalize it: ${text}`;
+            return `This is confusing. Explain it in a simple way to a noob. Define terms as you go.Don't use analogies. Don't use jargon. Don't use big words. Be as short as you can be. Just answer, don't personalize it: ${text}`;
     }
 }
 
@@ -31,8 +31,20 @@ function getPromptForType(type, text) {
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === 'textSelected') {
         console.log('Text selected:', request.text);
-        // Store the selected text
-        chrome.storage.local.set({ selectedText: request.text });
+        // If text is empty, clear the storage
+        if (!request.text) {
+            chrome.storage.local.remove(['selectedText', 'selectedTextTabId']);
+            return;
+        }
+        // Store the selected text with the tab ID
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+            if (tabs[0]) {
+                chrome.storage.local.set({ 
+                    selectedText: request.text,
+                    selectedTextTabId: tabs[0].id 
+                });
+            }
+        });
     }
     
     if (request.action === 'saveApiKey') {
@@ -73,9 +85,23 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
 async function handleExplanationRequest(request, sendResponse) {
     try {
-        // Get the selected text from storage
+        // Get the selected text from storage and verify it's from the current tab
         const result = await new Promise((resolve) => {
-            chrome.storage.local.get(['selectedText'], resolve);
+            chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+                if (!tabs[0]) {
+                    resolve({});
+                    return;
+                }
+                chrome.storage.local.get(['selectedText', 'selectedTextTabId'], function(data) {
+                    if (data.selectedTextTabId === tabs[0].id) {
+                        resolve(data);
+                    } else {
+                        // Clear stored text if it's from a different tab
+                        chrome.storage.local.remove(['selectedText', 'selectedTextTabId']);
+                        resolve({});
+                    }
+                });
+            });
         });
 
         if (!result.selectedText) {

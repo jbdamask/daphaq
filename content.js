@@ -12,7 +12,6 @@ function isExtensionContextValid() {
 // Safely send message to background script
 function safelySendMessage(message) {
     if (!isExtensionContextValid()) return;
-    
     try {
         chrome.runtime.sendMessage(message, response => {
             if (chrome.runtime.lastError) {
@@ -24,39 +23,32 @@ function safelySendMessage(message) {
     }
 }
 
-// Get any currently selected text using multiple methods
+// Get currently selected text
 function getCurrentSelection() {
     try {
-        // Method 1: Standard window selection
+        // Try standard window selection first
         const selection = window.getSelection();
-        if (selection && selection.toString().trim()) {
-            return selection.toString().trim();
+        const text = selection ? selection.toString().trim() : '';
+        
+        // If we got text through normal means, return it
+        if (text) {
+            return text;
         }
 
-        // Method 2: Check active element selection
-        if (document.activeElement) {
-            if (document.activeElement.selectionStart !== undefined) {
-                const start = document.activeElement.selectionStart;
-                const end = document.activeElement.selectionEnd;
-                if (start !== end) {
-                    return document.activeElement.value.substring(start, end).trim();
-                }
-            }
-            
-            // Check if the active element has selected text
-            const activeText = document.activeElement.textContent;
-            if (activeText) {
-                return activeText.trim();
-            }
-        }
-
-        // Method 3: Try document.selection for older browsers
-        if (document.selection && document.selection.type !== "Control") {
-            return document.selection.createRange().text.trim();
+        // Fallback for input elements
+        const activeElement = document.activeElement;
+        if (activeElement && 
+            (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA') && 
+            activeElement.selectionStart !== activeElement.selectionEnd) {
+            return activeElement.value.substring(
+                activeElement.selectionStart,
+                activeElement.selectionEnd
+            ).trim();
         }
 
         return '';
     } catch (e) {
+        console.error('Error getting selection:', e);
         return '';
     }
 }
@@ -65,7 +57,7 @@ function getCurrentSelection() {
 function updateSelectedText() {
     try {
         const text = getCurrentSelection();
-        if (text && text !== selectedText) {
+        if (text !== selectedText) {
             selectedText = text;
             safelySendMessage({
                 action: 'textSelected',
@@ -73,30 +65,24 @@ function updateSelectedText() {
             });
         }
     } catch (e) {
-        // Silent error handling
+        console.error('Error updating selection:', e);
     }
 }
 
-// Listen for text selection
-document.addEventListener('mouseup', function(e) {
-    if (!isExtensionContextValid()) return;
-    // Small delay to ensure selection is complete
-    setTimeout(updateSelectedText, 10);
-});
-
-// Listen for keyboard selection
-document.addEventListener('keyup', function(e) {
-    if (!isExtensionContextValid()) return;
-    // Wait a brief moment for the selection to be updated
-    setTimeout(updateSelectedText, 100);
+// Listen for selection events
+['mouseup', 'selectionchange'].forEach(event => {
+    document.addEventListener(event, () => {
+        if (!isExtensionContextValid()) return;
+        setTimeout(updateSelectedText, 100);
+    });
 });
 
 // Listen for messages from the popup
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (!isExtensionContextValid()) return;
-
     if (request.action === 'getSelectedText') {
-        const text = getCurrentSelection() || selectedText;
-        sendResponse({ text: text });
+        const text = getCurrentSelection();
+        selectedText = text || selectedText; // Update cache if we have new text
+        sendResponse({ text: selectedText });
     }
 }); 

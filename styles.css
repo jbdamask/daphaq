@@ -18,6 +18,8 @@ body {
   flex-direction: column;
   height: auto;
   min-height: min-content;
+  position: relative;
+  overflow: visible;
 }
 
 .header {
@@ -56,8 +58,10 @@ h1 {
 }
 
 .instructions.compact {
-  margin-bottom: 10px;
-  padding: 8px;
+  text-align: center;
+  margin: 15px 0;
+  color: #666;
+  font-size: 14px;
 }
 
 .instructions p {
@@ -352,4 +356,57 @@ button:disabled {
 
 button:disabled:hover {
   background-color: #ccc;
+}
+
+.help-icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  text-align: center;
+  background-color: #e0e0e0;
+  border-radius: 50%;
+  margin-left: 6px;
+  font-size: 12px;
+  color: #666;
+  cursor: help;
+  vertical-align: middle;
+  position: relative;
+}
+
+.help-icon:hover {
+  background-color: #d0d0d0;
+}
+
+.tooltip {
+  visibility: hidden;
+  position: absolute;
+  top: 130%;
+  left: -180px;
+  background-color: #333;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  width: 200px;
+  white-space: normal;
+  text-align: center;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+}
+
+.help-icon:hover .tooltip {
+  visibility: visible;
+}
+
+.tooltip::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 90%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #333 transparent;
 } 
